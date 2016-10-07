@@ -185,6 +185,10 @@ public class Compra extends AbstractEntity implements Serializable {
 			return "Solicitud de Pedido";
 		else if(this.estatus.equals(EEstatusCompra.ENVIADA))
 			return "Compra Realizada y Enviada a Proveedores";
+		else if(this.estatus.equals(EEstatusCompra.EN_ESPERA_DEPOSITO))
+			return "En Espera Depósito";
+		else if(this.estatus.equals(EEstatusCompra.EN_ESPERA_TRANSFERENCIA))
+			return "En Espera Transferencia";
 		else if(this.estatus.equals(EEstatusCompra.EN_ESPERA)){
 			System.out.println("ESTATUS DE LA COMPRA -> "+this.estatus.equals(EEstatusCompra.EN_ESPERA));
 			return "En espera";
