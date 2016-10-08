@@ -59,6 +59,9 @@ public interface SMaestros {
 	Cliente consultarCliente(Cliente cliente);
 	
 	@Transactional(readOnly=true)
+	Cliente consultarClienteByPersonaId(int personaID);
+	
+	@Transactional(readOnly=true)
 	Boolean consultarCorreoCliente(String correo);
 
 	//Analistas
