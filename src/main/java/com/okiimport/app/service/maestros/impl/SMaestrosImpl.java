@@ -261,6 +261,12 @@ public class SMaestrosImpl extends AbstractServiceImpl implements SMaestros {
 		return null;
 	}
 	
+	
+	public Cliente consultarClienteByPersonaId(int personaID) {
+		Cliente cliente = this.clienteRepository.findOne(personaID);
+    	return cliente;
+	}
+	
 	public Boolean consultarCorreoCliente(String correo) {
 		Cliente cliente=new Cliente();
 
