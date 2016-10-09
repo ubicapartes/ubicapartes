@@ -267,18 +267,14 @@ public class SMaestrosImpl extends AbstractServiceImpl implements SMaestros {
     	return cliente;
 	}
 	
+	public Boolean consultarCedulaCliente(String cedula){
+		Cliente cliente=this.clienteRepository.findByCedula(cedula);
+		return (cliente!=null) ? true : false;
+	}
+	
 	public Boolean consultarCorreoCliente(String correo) {
-		Cliente cliente=new Cliente();
-
-		cliente=this.clienteRepository.findByCorreo(correo);
-
-		if(cliente!=null){
-			System.out.println("correo existe es ---- "+cliente.getCorreo());
-			return true;
-		}else{
-			return false;
-		}
-
+		Cliente cliente=this.clienteRepository.findByCorreo(correo);
+		return (cliente!=null) ? true : false;
 	}
 	
 	// Analista
