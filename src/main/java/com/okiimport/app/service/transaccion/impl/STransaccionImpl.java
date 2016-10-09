@@ -829,6 +829,31 @@ public class STransaccionImpl extends AbstractServiceImpl implements STransaccio
 		return parametros;
 	}
 	
+	public Map<String, Object> consultarComprasDelClienteTodosEstatus(String cedula, String fieldSort, Boolean sortDirection,
+			int page, int limit) {
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		List<Compra> compras = null;
+		Cliente c = null;
+		c = this.clienteRepository.findByCedula(cedula);
+		if(c != null){
+			Page<Compra> pageCompra = this.compraRepository.findByRequerimientoCliente(c, new PageRequest(page, limit));
+			compras = pageCompra.getContent();
+			if(compras.size() > 0){
+				parametros.put("total", Long.valueOf((pageCompra!=null) ? pageCompra.getTotalElements():0).intValue());
+				parametros.put("compras", compras);
+			}
+			else {
+				parametros.put("total", 0);
+				parametros.put("compras", new ArrayList<Compra>());
+			}
+		} else {
+			parametros.put("total", 0);
+			parametros.put("compras", new ArrayList<Compra>());
+		}
+		
+		return parametros;
+	}
+	
 	public Map<String, Object> consultarComprasGeneral(String fieldSort, Boolean sortDirection,
 			int page, int limit) {
 		Map<String, Object> parametros = new HashMap<String, Object>();

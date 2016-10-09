@@ -15,6 +15,7 @@ import com.okiimport.app.resource.dao.IGenericJPARepository;
 @Repository
 public interface CompraRepository extends IGenericJPARepository<Compra, Integer> {
 	public Page<Compra> findByRequerimientoClienteAndEstatus(Cliente c, EEstatusCompra estatus, Pageable pageable);
+	public Page<Compra> findByRequerimientoCliente(Cliente c, Pageable pageable);
 	public Page<Compra> findByEstatusIn(Collection<EEstatusCompra> estatus, Pageable pageable);
 
 }

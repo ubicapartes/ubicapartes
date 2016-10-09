@@ -164,6 +164,10 @@ public interface STransaccion {
 			int page, int limit);
 	
 	@Transactional(readOnly=true)
+	Map<String, Object> consultarComprasDelClienteTodosEstatus(String cedula, String fieldSort, Boolean sortDirection,
+			int page, int limit);
+	
+	@Transactional(readOnly=true)
 	Map<String, Object> consultarComprasGeneral(String fieldSort, Boolean sortDirection,
 			int page, int limit);
 	
