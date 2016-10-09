@@ -63,12 +63,11 @@ public class SPagoImpl extends AbstractServiceImpl implements SPago {
 		return valor;
 	}
 	
-	// Formas de pago
 		public Map<String, Object> consultarPagoByCompra(Compra c) {
 				Map<String, Object> parametros = new HashMap<String, Object>();
 				PagoCliente pago = null;
 				pago = this.pagoRepository.findByCompra(c);
-				parametros.put("formasPago", pago);
+				parametros.put("pago", pago);
 				return parametros;
 		}
 
