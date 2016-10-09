@@ -161,5 +161,11 @@ public interface SMaestros {
 	
 	@Transactional(readOnly=true)
 	public HistoricoMoneda registrarHistorico(HistoricoMoneda historico);
+	
+	/*@Transactional(readOnly=true)
+	public List<Persona> consultarAdministradores();*/
+	
+	@Transactional(readOnly=true)
+	public List<Analista> consultarAdministradores();
 
 }

@@ -96,6 +96,10 @@ public class SMaestrosImpl extends AbstractServiceImpl implements SMaestros {
 
 	@Autowired
 	private VehiculoRepository vehiculoRepository;
+	
+	/*@SuppressWarnings("rawtypes")
+	@Autowired
+	private PersonaRepository personaRepository;*/
 
 	// Marcas
 	public Map<String, Object> consultarMarcas(int page, int limit) {
@@ -241,6 +245,14 @@ public class SMaestrosImpl extends AbstractServiceImpl implements SMaestros {
 			persona = (T) dao.save(persona);
 		return persona;
 	}
+	
+	/*public List<Persona> consultarAdministradores() {
+		List<Persona> admins = this.personaRepository.findByTipoMenu(1);
+		return admins;
+		
+	}*/
+	
+	
 
 	// Cliente
 	public Cliente registrarOActualizarCliente(Cliente cliente) {
@@ -326,6 +338,12 @@ public class SMaestrosImpl extends AbstractServiceImpl implements SMaestros {
 		parametros.put("total", total);
 		parametros.put("administradores", analistas);
 		return parametros;
+	}
+	
+	public List<Analista> consultarAdministradores() {
+		List<Analista> admins = this.analistaRepository.findByTipoMenu(1);
+		return admins;
+		
 	}
 
 	public List<Analista> consultarCantRequerimientos(

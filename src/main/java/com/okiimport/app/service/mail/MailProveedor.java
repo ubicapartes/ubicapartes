@@ -15,4 +15,5 @@ public interface MailProveedor {
 			final Cotizacion cotizacion,final List<DetalleCotizacion> detallesCotizacion, final MailService mailService);
 	void enviarCotAprobadaProveedor(final Proveedor proveedor, final Requerimiento requerimiento, 
 			final Cotizacion cotizacion, final MailService mailService);
+	void enviarInformacionContacto(final String correoAdmin, final String nombre, final String tlf, final String correoContacto, final String mensaje, final MailService mailService);
 }
