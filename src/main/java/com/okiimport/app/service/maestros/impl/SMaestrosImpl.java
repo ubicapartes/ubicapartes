@@ -155,15 +155,11 @@ public class SMaestrosImpl extends AbstractServiceImpl implements SMaestros {
 			Integer total = 0;
 			List<FormaPago> formas = null;
 			if (limit > 0) {
-				Page<FormaPago> pageformas = this.formaPagoRepository
-						.findByEstatus(EEstatusFormaPago.ACTIVO, new PageRequest(
-								page, limit));
-				total = Long.valueOf(pageformas.getTotalElements())
-						.intValue();
+				Page<FormaPago> pageformas = this.formaPagoRepository.findByEstatus(EEstatusFormaPago.ACTIVO, new PageRequest(page, limit));
+				total = Long.valueOf(pageformas.getTotalElements()).intValue();
 				formas = pageformas.getContent();
 			} else {
-				formas = this.formaPagoRepository
-						.findByEstatus(EEstatusFormaPago.ACTIVO);
+				formas = this.formaPagoRepository.findByEstatus(EEstatusFormaPago.ACTIVO);
 				total = formas.size();
 			}
 			Parametros.put("total", total);

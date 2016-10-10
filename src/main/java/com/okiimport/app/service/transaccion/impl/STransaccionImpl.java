@@ -3,6 +3,7 @@ package com.okiimport.app.service.transaccion.impl;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -825,6 +826,54 @@ public class STransaccionImpl extends AbstractServiceImpl implements STransaccio
 			parametros.put("compras", new ArrayList<Compra>());
 		}
 		
+		return parametros;
+	}
+	
+	public Map<String, Object> consultarComprasDelClienteTodosEstatus(String cedula, String fieldSort, Boolean sortDirection,
+			int page, int limit) {
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		List<Compra> compras = null;
+		Cliente c = null;
+		c = this.clienteRepository.findByCedula(cedula);
+		if(c != null){
+			Page<Compra> pageCompra = this.compraRepository.findByRequerimientoCliente(c, new PageRequest(page, limit));
+			compras = pageCompra.getContent();
+			if(compras.size() > 0){
+				parametros.put("total", Long.valueOf((pageCompra!=null) ? pageCompra.getTotalElements():0).intValue());
+				parametros.put("compras", compras);
+			}
+			else {
+				parametros.put("total", 0);
+				parametros.put("compras", new ArrayList<Compra>());
+			}
+		} else {
+			parametros.put("total", 0);
+			parametros.put("compras", new ArrayList<Compra>());
+		}
+		
+		return parametros;
+	}
+	
+	public Map<String, Object> consultarComprasGeneral(String fieldSort, Boolean sortDirection,
+			int page, int limit) {
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		List<Compra> compras = null;
+		Collection<EEstatusCompra> estatus = new ArrayList<EEstatusCompra>();
+		estatus.add(EEstatusCompra.EN_ESPERA);
+		estatus.add(EEstatusCompra.EN_ESPERA_DEPOSITO);
+		estatus.add(EEstatusCompra.EN_ESPERA_TRANSFERENCIA);
+		Page<Compra> pageCompra = this.compraRepository.findByEstatusIn(estatus, new PageRequest(page, limit));
+		compras = pageCompra.getContent();
+		if(compras.size() > 0){
+			//System.out.println("compras.size() -> "+compras.size());
+			parametros.put("total", Long.valueOf((pageCompra!=null) ? pageCompra.getTotalElements():0).intValue());
+			parametros.put("compras", compras);
+		}
+		else {
+			//System.out.println("Compras en cero...");
+			parametros.put("total", 0);
+			parametros.put("compras", new ArrayList<Compra>());
+		}
 		return parametros;
 	}
 	
