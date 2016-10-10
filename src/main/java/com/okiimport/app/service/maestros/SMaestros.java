@@ -62,6 +62,9 @@ public interface SMaestros {
 	Cliente consultarClienteByPersonaId(int personaID);
 	
 	@Transactional(readOnly=true)
+	Boolean consultarCedulaCliente(String cedula);
+	
+	@Transactional(readOnly=true)
 	Boolean consultarCorreoCliente(String correo);
 
 	//Analistas
@@ -158,5 +161,11 @@ public interface SMaestros {
 	
 	@Transactional(readOnly=true)
 	public HistoricoMoneda registrarHistorico(HistoricoMoneda historico);
+	
+	/*@Transactional(readOnly=true)
+	public List<Persona> consultarAdministradores();*/
+	
+	@Transactional(readOnly=true)
+	public List<Analista> consultarAdministradores();
 
 }
