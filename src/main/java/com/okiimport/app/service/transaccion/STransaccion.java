@@ -14,6 +14,7 @@ import com.okiimport.app.model.DetalleCotizacion;
 import com.okiimport.app.model.DetalleCotizacionInternacional;
 import com.okiimport.app.model.DetalleOferta;
 import com.okiimport.app.model.DetalleRequerimiento;
+import com.okiimport.app.model.MarcaVehiculo;
 import com.okiimport.app.model.Oferta;
 import com.okiimport.app.model.OrdenCompra;
 import com.okiimport.app.model.PagoCliente;
@@ -201,4 +202,10 @@ public interface STransaccion {
 		
 		@Transactional(readOnly=true)
 		Boolean validarAnalistaEnRequerimientos(Analista analista);
+		
+		@Transactional(readOnly=true)
+		Boolean validarMarcaEnRequerimientos(MarcaVehiculo marca);
+		
+		@Transactional(readOnly=true)
+		Boolean validarMarcaEnVehiculo(MarcaVehiculo marca);
 }

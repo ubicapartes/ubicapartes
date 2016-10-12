@@ -411,6 +411,37 @@ public class SMaestrosImpl extends AbstractServiceImpl implements SMaestros {
 		return this.analistaRepository.save(analista);
 	}
 
+	//Metodo para consultar el correo Analista
+		public Boolean consultarCorreoAnalista(String correo) {
+			Analista analista=new Analista();
+
+			analista=this.analistaRepository.findByCorreo(correo);
+
+			if(analista!=null){
+				//System.out.println("correo existe es ---- "+proveedor.getCorreo());
+				return true;
+			}else{
+				return false;
+			}
+
+		}
+		
+		//Metodo para consultar el cedula Analista
+			public Boolean consultarCedulaRifAnalista(String cedula) {
+				Analista analista=new Analista();
+
+				analista=this.analistaRepository.findByCedula(cedula);
+
+				if(analista!=null){
+					//System.out.println("correo existe es ---- "+proveedor.getCorreo());
+					return true;
+				}else{
+					return false;
+				}
+
+			}
+	
+	
 	// Proveedores
 	public Map<String, Object> consultarProveedoresSinUsuarios(
 			Persona personaF, String fieldSort, Boolean sortDirection,
@@ -547,13 +578,28 @@ public class SMaestrosImpl extends AbstractServiceImpl implements SMaestros {
 		proveedor=this.proveedorRepository.findByCorreo(correo);
 
 		if(proveedor!=null){
-			System.out.println("correo existe es ---- "+proveedor.getCorreo());
+			//System.out.println("correo existe es ---- "+proveedor.getCorreo());
 			return true;
 		}else{
 			return false;
 		}
 
 	}
+	
+	//Metodo para consultar el cedula Proveedor
+		public Boolean consultarCedulaRifProveedor(String cedula) {
+			Proveedor proveedor=new Proveedor();
+
+			proveedor=this.proveedorRepository.findByCedula(cedula);
+
+			if(proveedor!=null){
+				//System.out.println("correo existe es ---- "+proveedor.getCorreo());
+				return true;
+			}else{
+				return false;
+			}
+
+		}
 
 	// Clasificacion Repuesto
 	public Map<String, Object> consultarClasificacionRepuesto(int page,

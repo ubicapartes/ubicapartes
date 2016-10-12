@@ -66,6 +66,7 @@ public interface SMaestros {
 	
 	@Transactional(readOnly=true)
 	Boolean consultarCorreoCliente(String correo);
+	
 
 	//Analistas
 	@Transactional(readOnly=true)
@@ -90,6 +91,12 @@ public interface SMaestros {
 	
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	Analista registrarAnalista(Analista analista);
+	
+	@Transactional(readOnly=true)
+	Boolean consultarCorreoAnalista(String correo);
+	
+	@Transactional(readOnly=true)
+	Boolean consultarCedulaRifAnalista(String cedula);
 	
 	//Proveedores
 	@Transactional(readOnly=true)
@@ -118,6 +125,9 @@ public interface SMaestros {
 	
 	@Transactional(readOnly=true)
 	Boolean consultarCorreoProveedor(String correo);
+	
+	@Transactional(readOnly=true)
+	Boolean consultarCedulaRifProveedor(String cedula);
 	
 	//Clasificacion Repuesto
 	@Transactional(readOnly=true)
