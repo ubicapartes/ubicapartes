@@ -7,6 +7,8 @@ public enum EEstatusCompra {
 	PAGADA ("PA", "Pagada"),
 	RECHAZADA("RE", "Rechazada"),
 	EN_ESPERA("ES", "En Espera"),
+	EN_ESPERA_TRANSFERENCIA("ET", "En Espera Transferencia"),
+	EN_ESPERA_DEPOSITO("ED", "En Espera Depósito"),
 	CANCELADA("CA", "Cancelada");
 	
 	
