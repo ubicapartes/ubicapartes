@@ -47,6 +47,7 @@ import com.okiimport.app.model.DetalleCotizacion;
 import com.okiimport.app.model.DetalleCotizacionInternacional;
 import com.okiimport.app.model.DetalleOferta;
 import com.okiimport.app.model.DetalleRequerimiento;
+import com.okiimport.app.model.MarcaVehiculo;
 import com.okiimport.app.model.Oferta;
 import com.okiimport.app.model.OrdenCompra;
 import com.okiimport.app.model.PagoCliente;
@@ -592,6 +593,27 @@ public class STransaccionImpl extends AbstractServiceImpl implements STransaccio
 		estatus.add(EEstatusRequerimiento.RECIBIDO_EDITADO);
 		return this.requerimientoRepository.findByAnalistaAndEstatusIn(analista, estatus).size()==0;
 	}
+	
+	@Override
+	public Boolean validarMarcaEnRequerimientos(MarcaVehiculo marca) {
+		List<EEstatusRequerimiento> estatus =  new ArrayList<EEstatusRequerimiento>();
+		estatus.add(EEstatusRequerimiento.CON_COTIZACIONES_A);
+		estatus.add(EEstatusRequerimiento.CON_COTIZACIONES_I);
+		estatus.add(EEstatusRequerimiento.CON_RECOTIZACIONES);
+		estatus.add(EEstatusRequerimiento.EMITIDO);
+		estatus.add(EEstatusRequerimiento.CONCRETADO);
+		estatus.add(EEstatusRequerimiento.ENVIADO_PROVEEDOR);
+		estatus.add(EEstatusRequerimiento.OFERTADO);
+		estatus.add(EEstatusRequerimiento.RECIBIDO_EDITADO);
+		return this.requerimientoRepository.findByMarcaVehiculoAndEstatusIn(marca, estatus).size()==0;
+	}
+	
+	@Override
+	public Boolean validarMarcaEnVehiculo(MarcaVehiculo marca) {
+		
+		return this.vehiculoRepository.findByMarcaVehiculo(marca).size()==0;
+	}
+	
 	
 	@Override
 	public Cotizacion registrarRecotizacion(Requerimiento requerimiento, Proveedor proveedor, List<DetalleCotizacion> detalles){
