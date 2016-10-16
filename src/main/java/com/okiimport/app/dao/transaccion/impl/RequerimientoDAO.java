@@ -279,13 +279,17 @@ public class RequerimientoDAO extends AbstractJpaDao<Requerimiento> {
 				}
 				
 				
+					
 				//Analista
 				Analista analista = regFiltro.getAnalista();
 				if(analista!=null && joins.get("analista") != null){
 					if(analista.getNombre() != null)
-						restricciones.add(this.criteriaBuilder.like(
+						restricciones.add(this.criteriaBuilder.or(this.criteriaBuilder.like(
 								this.criteriaBuilder.lower(joins.get("analista").get("nombre").as(String.class)),
-								"%"+ String.valueOf(analista.getNombre()).toLowerCase() + "%"));
+								"%"+ String.valueOf(analista.getNombre()).toLowerCase() + "%"),this.criteriaBuilder.like(
+								this.criteriaBuilder.lower(joins.get("analista").get("apellido").as(String.class)),
+								"%"+ String.valueOf(analista.getNombre()).toLowerCase() + "%")));
+
 				}
 				
 				//Marca Vehiculo
