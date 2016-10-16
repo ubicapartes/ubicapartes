@@ -7,5 +7,5 @@ import com.okiimport.app.resource.dao.IGenericJPARepository;
 
 @Repository
 public interface HistoryLoginRepository extends IGenericJPARepository<HistoryLogin, Integer> {
-	HistoryLogin findByDateLogoutIsNullAndUsuarioUsernameContainingIgnoreCase(String username);
+	HistoryLogin findByDateLogoutIsNullAndUsuarioId(Integer username);
 }

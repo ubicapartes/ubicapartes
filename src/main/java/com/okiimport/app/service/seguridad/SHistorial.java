@@ -11,7 +11,7 @@ import com.okiimport.app.model.Usuario;
 @Transactional
 public interface SHistorial {
 	//Historial de Session
-	HistoryLogin historicoSessionNoTerminada(String username);
+	HistoryLogin historicoSessionNoTerminada(Integer username);
 	
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	void registrarHistorialSession(Usuario usuario);

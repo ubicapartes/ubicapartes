@@ -16,12 +16,12 @@ public class SHistorialImpl extends AbstractServiceImpl implements SHistorial {
 	private HistoryLoginRepository historyLoginRepository;
 	
 	//1. Historial de Session
-	public HistoryLogin historicoSessionNoTerminada(String username){
-		return this.historyLoginRepository.findByDateLogoutIsNullAndUsuarioUsernameContainingIgnoreCase(username);
+	public HistoryLogin historicoSessionNoTerminada(Integer username){
+		return this.historyLoginRepository.findByDateLogoutIsNullAndUsuarioId(username);
 	}
 	
 	public void registrarHistorialSession(Usuario usuario){
-		HistoryLogin history = historicoSessionNoTerminada(usuario.getUsername());
+		HistoryLogin history = historicoSessionNoTerminada(usuario.getId());
 		if(history==null){
 			history = new HistoryLogin();
 			history.setUsuario(usuario);
@@ -31,7 +31,7 @@ public class SHistorialImpl extends AbstractServiceImpl implements SHistorial {
 	}
 	
 	public void cerarHistorialSession(Usuario usuario){
-		HistoryLogin history = historicoSessionNoTerminada(usuario.getUsername());
+		HistoryLogin history = historicoSessionNoTerminada(usuario.getId());
 		if(history!=null){
 			history.setDateLogout(new Timestamp(calendar.getTime().getTime()));
 			this.historyLoginRepository.save(history);
