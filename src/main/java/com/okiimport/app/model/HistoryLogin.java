@@ -32,7 +32,7 @@ public class HistoryLogin extends AbstractEntity implements Serializable {
 	
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="username", referencedColumnName="username", nullable=false)
+	@JoinColumn(name="username", referencedColumnName="id", nullable=false)
 	private Usuario usuario;
 
 	public HistoryLogin() {

@@ -54,7 +54,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	private List<PersistentLogin> persistentLogins;
 	
 	//bi-directional one-to-many association to HistoryLogin
-	@OneToMany(mappedBy="usuario", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="usuario", fetch=FetchType.LAZY, cascade= CascadeType.ALL)
 	private List<HistoryLogin> historyLogins;
 	
 	//bi-directional one-to-one association to Persona
@@ -67,7 +67,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 			}
 	)
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER, targetEntity= Persona.class)
 	@JoinColumn(name="persona_id")
 	private Persona persona;
 
