@@ -37,7 +37,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@Basic(fetch=FetchType.LAZY)
 	private byte[] foto;
 	
-	@Column(length=20, unique=true)
+	@Column(unique=true)
 	private String username;
 
 	@Column(length=100)

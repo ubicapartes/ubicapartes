@@ -52,7 +52,7 @@ public class MailServiceImpl implements MailService {
 	public void send(String to, String subject, String template,
 			final Map<String, Object> model) {
 		// TODO Auto-generated method stub
-		System.out.println("Send 3");
+		//System.out.println("Send 3");
 		send(to, subject, null, template, model);
 	}
 	

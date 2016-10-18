@@ -19,5 +19,6 @@ public interface VehiculoRepository extends IGenericJPARepository<Vehiculo, Inte
 	Page<Vehiculo> findByCliente(Cliente cliente, Pageable pageable);
 	List<Vehiculo> findByClienteId(Integer id);
 	Page<Vehiculo> findByClienteId(Integer id, Pageable pageable);
+	List<Vehiculo> findByMarcaVehiculo(MarcaVehiculo marca);
 	
 }

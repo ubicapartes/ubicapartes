@@ -16,6 +16,8 @@ import org.springframework.data.jpa.domain.Specification;
 
 import com.okiimport.app.model.Compra;
 import com.okiimport.app.model.PagoCliente;
+import com.okiimport.app.model.enumerados.EEstatusCompra;
+import com.okiimport.app.model.enumerados.EEstatusRequerimiento;
 import com.okiimport.app.resource.dao.AbstractJpaDao;
 
 public class PagoClienteDAO extends AbstractJpaDao<PagoCliente> {
@@ -34,11 +36,12 @@ public class PagoClienteDAO extends AbstractJpaDao<PagoCliente> {
 				
 				// 3. Creamos las Restricciones de la busqueda
 				List<Predicate> restricciones = new ArrayList<Predicate>();
-
-				agregarRestriccionesFiltros(restricciones, pagoFiltro, joins);
 				
+				agregarRestriccionesFiltros(restricciones, pagoFiltro, joins);
+				restricciones.add(criteriaBuilder.equal(joins.get("compra").get("estatus"), EEstatusCompra.PAGADA));
 				// 4. Ejecutamos				
-				return crearPredicate(restricciones);
+				return crearPredicate(restricciones);				
+				
 			}
 		};
 	}
@@ -84,6 +87,7 @@ public class PagoClienteDAO extends AbstractJpaDao<PagoCliente> {
 								joins.get("compra").get("idCompra").as(String.class),
 								"%"+String.valueOf(pagoFiltro.getCompra().getIdCompra()) +"%" ));
 					}
+					
 
 					if (pagoFiltro.getCompra().getRequerimiento().getCliente().getNombre() != null) {
 						restricciones.add(this.criteriaBuilder.like(
