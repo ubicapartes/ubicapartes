@@ -28,6 +28,9 @@ public interface SControlUsuario {
 	Usuario consultarUsuario(Integer id);
 	
 	@Transactional(readOnly=true)
+	Usuario consultarUsuario(String email);
+	
+	@Transactional(readOnly=true)
 	Usuario consultarUsuario(String usuario, String clave, SControlConfiguracion sControlConfiguracion);
 	
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
