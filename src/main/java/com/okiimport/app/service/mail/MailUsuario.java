@@ -5,4 +5,5 @@ import com.okiimport.app.model.Usuario;
 public interface MailUsuario {
 	void enviarUsuarioyPassword(Usuario usuario, MailService mailService);
 	void recuperarUsuario(Usuario usuario, MailService mailService);
+	void recuperarPassword(String serverUrl, Usuario usuario, MailService mailService);
 }
