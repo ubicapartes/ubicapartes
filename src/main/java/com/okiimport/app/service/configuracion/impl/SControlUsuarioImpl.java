@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 
 
+
 import com.okiimport.app.dao.configuracion.MenuRepository;
 import com.okiimport.app.dao.configuracion.UsuarioRepository;
 import com.okiimport.app.dao.configuracion.impl.UsuarioDAO;
@@ -73,11 +74,16 @@ public class SControlUsuarioImpl extends AbstractServiceImpl implements SControl
 	}
 	
 	@Override
+	public Usuario consultarUsuarioByToken(String token){
+		return this.usuarioRepository.findByToken(token);
+	}
+	
+	@Override
 	public Usuario grabarUsuario(Usuario usuario, SMaestros sMaestros) {
 		//usuario.setPasword(this.bcryptEncoder.encode(usuario.getPasword()));
 		Persona persona = usuario.getPersona();
-		persona = sMaestros.acutalizarPersona(persona);
-		usuario.setPersona(persona);
+		/*persona = sMaestros.acutalizarPersona(persona);
+		usuario.setPersona(persona);*/
 		usuario.setUsername(persona.getCorreo());
 		return actualizarUsuario(usuario, true);
 	}

@@ -46,5 +46,26 @@ public class MailUsuarioImpl extends AbstractMailImpl implements MailUsuario {
 			}
 		});
 	}
+
+	@Override
+	public void recuperarPassword(final String serverUrl, final Usuario usuario, final MailService mailService) {
+		super.sendMail(new Runnable(){
+			@Override
+			public void run() {
+				try {
+					final Map<String, Object> model = new HashMap<String, Object>();
+					model.put("url", serverUrl+"/password/new?token="+usuario.getToken());
+					model.put("usuario", usuario);
+					
+					mailService.send(usuario.getPersona().getCorreo(), "Recuperacion de Contrase\u00f1a",
+							"recuperarPassword.html", model);
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		});
+		
+	}
 	
 }

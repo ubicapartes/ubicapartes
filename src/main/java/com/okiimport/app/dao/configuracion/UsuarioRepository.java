@@ -11,4 +11,5 @@ public interface UsuarioRepository extends IGenericJPARepository<Usuario, Intege
 	Usuario findByUsernameIgnoreCase(String username);
 	Usuario findByPersonaCorreo(String correo);
 	Usuario findByPersonaId(Integer id);
+	Usuario findByToken(String token);
 }

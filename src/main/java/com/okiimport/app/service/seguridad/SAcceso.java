@@ -14,4 +14,6 @@ public interface SAcceso extends UserDetailsService {
 	Usuario consultarUsuario(String email);
 	Boolean validarAutenticacion(User user);
 	UsernamePasswordAuthenticationToken consultarAutenticacion(User user);
+	Usuario generarTokenParaCambiarPassword(Usuario usuario);
+	Usuario consultarToken(String token);
 }

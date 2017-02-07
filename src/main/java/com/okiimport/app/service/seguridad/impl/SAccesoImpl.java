@@ -87,4 +87,15 @@ public class SAccesoImpl extends AbstractServiceImpl implements SAcceso {
 		return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
 	}
 
+	@Override
+	public Usuario generarTokenParaCambiarPassword(Usuario usuario) {
+		usuario.setToken(bcryptEncoder.encode(usuario.getUsername()));
+		return sControlUsuario.actualizarUsuario(usuario, false);
+	}
+
+	@Override
+	public Usuario consultarToken(String token) {
+		return this.sControlUsuario.consultarUsuarioByToken(token);
+	}
+
 }
