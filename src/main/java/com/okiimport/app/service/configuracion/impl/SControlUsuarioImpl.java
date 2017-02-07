@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
+
+
 import com.okiimport.app.dao.configuracion.MenuRepository;
 import com.okiimport.app.dao.configuracion.UsuarioRepository;
 import com.okiimport.app.dao.configuracion.impl.UsuarioDAO;
@@ -47,10 +49,17 @@ public class SControlUsuarioImpl extends AbstractServiceImpl implements SControl
 	}
 	
 	//1.Usuario
+	@Override
 	public Usuario consultarUsuario(Integer id){
 		return this.usuarioRepository.findOne(id);
 	}
 	
+	@Override
+	public Usuario consultarUsuario(String correo){
+		return this.usuarioRepository.findByPersonaCorreo(correo);
+	}
+	
+	@Override
 	public Usuario consultarUsuario(String username, String clave, SControlConfiguracion sControlConfiguracion) {
 		Usuario usuario = null;
 		if(clave != null)
@@ -64,21 +73,29 @@ public class SControlUsuarioImpl extends AbstractServiceImpl implements SControl
 		return usuario;
 	}
 	
+	@Override
+	public Usuario consultarUsuarioByToken(String token){
+		return this.usuarioRepository.findByToken(token);
+	}
+	
+	@Override
 	public Usuario grabarUsuario(Usuario usuario, SMaestros sMaestros) {
 		//usuario.setPasword(this.bcryptEncoder.encode(usuario.getPasword()));
 		Persona persona = usuario.getPersona();
-		persona = sMaestros.acutalizarPersona(persona);
-		usuario.setPersona(persona);
+		/*persona = sMaestros.acutalizarPersona(persona);
+		usuario.setPersona(persona);*/
 		usuario.setUsername(persona.getCorreo());
 		return actualizarUsuario(usuario, true);
 	}
 	
+	@Override
 	public Usuario actualizarUsuario(Usuario usuario, boolean encriptar){
 		/*if(encriptar)
 			usuario.setPasword(this.bcryptEncoder.encode(usuario.getPasword()));*/
 		return this.usuarioRepository.save(usuario);
 	}
 	
+	@Override
 	public Boolean cambiarEstadoUsuario(Usuario usuario, boolean estado){
 		if((usuario=consultarUsuario(usuario.getId()))!=null) {
 			usuario.setActivo(estado);
@@ -89,6 +106,7 @@ public class SControlUsuarioImpl extends AbstractServiceImpl implements SControl
 		return false;
 	}
 	
+	@Override
 	public Map<String, Object> consultarUsuarios(Usuario usuarioF, String fieldSort, Boolean sortDirection, 
 			int pagina, int limit) {
 		Map<String, Object> parametros = new HashMap<String, Object>();
@@ -110,6 +128,7 @@ public class SControlUsuarioImpl extends AbstractServiceImpl implements SControl
 		return parametros;
 	}
 	
+	@Override
 	public Usuario crearUsuario(Persona persona, SMaestros sMaestros){
 		persona.setiEstatus(EstatusAnalistaFactory.getEstatusActivo());
 		Usuario usuario = new Usuario();
@@ -123,6 +142,7 @@ public class SControlUsuarioImpl extends AbstractServiceImpl implements SControl
 		return usuario;
 	}
 	
+	@Override
 	public String buscarUsername(Persona persona) {
 		boolean noValido = true;
 		String usuario = persona.getNombre().split(" ")[0].toLowerCase();
@@ -137,21 +157,25 @@ public class SControlUsuarioImpl extends AbstractServiceImpl implements SControl
 		return username;
 	}
 	
+	@Override
 	public boolean verificarUsername(String username){
 		Usuario usuario = consultarUsuario(username, null, null);
 		return (usuario!=null);
 	}
 	
+	@Override
 	public Usuario consultarUsuario(int idPersona) {
 		return this.usuarioRepository.findByPersonaId(idPersona);
 	}
 	
 	//2. Menus
+	@Override
 	public List<Menu> consultarPadresMenuUsuario(Integer tipo) {
 		Sort sortMenu = new Sort(Sort.Direction.ASC, "idMenu");
 		return this.menuRepository.findByPadreNullAndTipo(tipo, sortMenu);
 	}
 
+	@Override
 	public List<Menu> consultarHijosMenuUsuario(Integer tipo) {
 		Sort sortMenu = new Sort(Sort.Direction.ASC, "idMenu");
 		return this.menuRepository.findByHijosNullAndTipo(tipo, sortMenu);
