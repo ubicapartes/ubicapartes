@@ -46,7 +46,7 @@ public class ConfigMail {
 
 	public JavaMailSenderImpl getMailSender(){
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		mailSender.setHost("smtp.gmail.com");
+		mailSender.setHost("smtp-mail.outlook.com");
 		mailSender.setProtocol("smtp");
 		mailSender.setUsername(user);
 		mailSender.setPassword(password);
@@ -56,7 +56,7 @@ public class ConfigMail {
 	
 	private Properties getJavaMailProperties(){
 		Properties javaMailProperties = new Properties();
-		javaMailProperties.put("mail.smtp.host", "smtp.gmail.com");
+		javaMailProperties.put("mail.smtp.host", "smtp-mail.outlook.com");
 		javaMailProperties.put("mail.smtp.user", this.user);
 		javaMailProperties.put("mail.smtp.password", this.password);
 		javaMailProperties.put("mail.smtp.port", "587");

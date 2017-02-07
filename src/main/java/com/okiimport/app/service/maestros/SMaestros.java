@@ -59,7 +59,14 @@ public interface SMaestros {
 	Cliente consultarCliente(Cliente cliente);
 	
 	@Transactional(readOnly=true)
+	Cliente consultarClienteByPersonaId(int personaID);
+	
+	@Transactional(readOnly=true)
+	Boolean consultarCedulaCliente(String cedula);
+	
+	@Transactional(readOnly=true)
 	Boolean consultarCorreoCliente(String correo);
+	
 
 	//Analistas
 	@Transactional(readOnly=true)
@@ -84,6 +91,12 @@ public interface SMaestros {
 	
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	Analista registrarAnalista(Analista analista);
+	
+	@Transactional(readOnly=true)
+	Boolean consultarCorreoAnalista(String correo);
+	
+	@Transactional(readOnly=true)
+	Boolean consultarCedulaRifAnalista(String cedula);
 	
 	//Proveedores
 	@Transactional(readOnly=true)
@@ -112,6 +125,9 @@ public interface SMaestros {
 	
 	@Transactional(readOnly=true)
 	Boolean consultarCorreoProveedor(String correo);
+	
+	@Transactional(readOnly=true)
+	Boolean consultarCedulaRifProveedor(String cedula);
 	
 	//Clasificacion Repuesto
 	@Transactional(readOnly=true)
@@ -155,5 +171,11 @@ public interface SMaestros {
 	
 	@Transactional(readOnly=true)
 	public HistoricoMoneda registrarHistorico(HistoricoMoneda historico);
+	
+	/*@Transactional(readOnly=true)
+	public List<Persona> consultarAdministradores();*/
+	
+	@Transactional(readOnly=true)
+	public List<Analista> consultarAdministradores();
 
 }

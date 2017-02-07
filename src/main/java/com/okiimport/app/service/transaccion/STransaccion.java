@@ -14,6 +14,7 @@ import com.okiimport.app.model.DetalleCotizacion;
 import com.okiimport.app.model.DetalleCotizacionInternacional;
 import com.okiimport.app.model.DetalleOferta;
 import com.okiimport.app.model.DetalleRequerimiento;
+import com.okiimport.app.model.MarcaVehiculo;
 import com.okiimport.app.model.Oferta;
 import com.okiimport.app.model.OrdenCompra;
 import com.okiimport.app.model.PagoCliente;
@@ -163,6 +164,14 @@ public interface STransaccion {
 	Map<String, Object> consultarComprasDelCliente(String cedula, String fieldSort, Boolean sortDirection,
 			int page, int limit);
 	
+	@Transactional(readOnly=true)
+	Map<String, Object> consultarComprasDelClienteTodosEstatus(String cedula, String fieldSort, Boolean sortDirection,
+			int page, int limit);
+	
+	@Transactional(readOnly=true)
+	Map<String, Object> consultarComprasGeneral(String fieldSort, Boolean sortDirection,
+			int page, int limit);
+	
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	Compra registrarOActualizarCompra(Compra compra);
 	
@@ -201,4 +210,10 @@ public interface STransaccion {
 		
 		@Transactional(readOnly=true)
 		Boolean validarAnalistaEnRequerimientos(Analista analista);
+		
+		@Transactional(readOnly=true)
+		Boolean validarMarcaEnRequerimientos(MarcaVehiculo marca);
+		
+		@Transactional(readOnly=true)
+		Boolean validarMarcaEnVehiculo(MarcaVehiculo marca);
 }

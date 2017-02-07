@@ -1,5 +1,7 @@
 package com.okiimport.app.dao.maestros;
 
+import java.util.List;
+
 import org.springframework.data.repository.NoRepositoryBean;
 
 import com.okiimport.app.model.Persona;
@@ -10,4 +12,6 @@ public interface PersonaRepository<T extends Persona> extends IGenericJPAReposit
 	T findByUsuarioUsernameIgnoreCase(String username);
 	T findByCedula(String cedula);
 	T findByCorreo(String correo);
+	List<T> findByTipoMenu(int tipo_menu);
+	
 }

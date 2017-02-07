@@ -33,6 +33,8 @@ public class SAccesoImpl extends AbstractServiceImpl implements SAcceso {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**OVERRIDE METHODS*/
+	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = sControlUsuario.consultarUsuario(username, null, null);
 		if(usuario!=null){
@@ -58,6 +60,14 @@ public class SAccesoImpl extends AbstractServiceImpl implements SAcceso {
 			throw new UsernameNotFoundException("Usuario No Encontrado!!!");
 	}
 
+	/**INTERFACES*/
+	//1. SAcceso
+	@Override
+	public Usuario consultarUsuario(String email){
+		return this.sControlUsuario.consultarUsuario(email);
+	}
+	
+	@Override
 	public Boolean validarAutenticacion(User user) {
 		try{
 			UsernamePasswordAuthenticationToken auth = consultarAutenticacion(user);
@@ -71,9 +81,21 @@ public class SAccesoImpl extends AbstractServiceImpl implements SAcceso {
 		return false;
 	}
 
+	@Override
 	public UsernamePasswordAuthenticationToken consultarAutenticacion(User user) {
 		UserDetails userDetails = loadUserByUsername(user.getUsername());
 		return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+	}
+
+	@Override
+	public Usuario generarTokenParaCambiarPassword(Usuario usuario) {
+		usuario.setToken(bcryptEncoder.encode(usuario.getUsername()));
+		return sControlUsuario.actualizarUsuario(usuario, false);
+	}
+
+	@Override
+	public Usuario consultarToken(String token) {
+		return this.sControlUsuario.consultarUsuarioByToken(token);
 	}
 
 }

@@ -1,19 +1,30 @@
 package com.okiimport.app.model;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Any;
 import org.hibernate.annotations.AnyMetaDef;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.MetaValue;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.okiimport.app.resource.model.AbstractEntity;
-
-import java.util.List;
 
 
 /**
@@ -37,7 +48,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@Basic(fetch=FetchType.LAZY)
 	private byte[] foto;
 	
-	@Column(length=20, unique=true)
+	@Column(unique=true)
 	private String username;
 
 	@Column(length=100)
@@ -45,6 +56,9 @@ public class Usuario extends AbstractEntity implements Serializable {
 	
 	@Column(nullable=false)
 	private Boolean activo;
+	
+	@Column
+	private String token;
 	
 	@Transient
 	private String paswordRepeat;
@@ -54,7 +68,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	private List<PersistentLogin> persistentLogins;
 	
 	//bi-directional one-to-many association to HistoryLogin
-	@OneToMany(mappedBy="usuario", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="usuario", fetch=FetchType.LAZY, cascade= CascadeType.ALL)
 	private List<HistoryLogin> historyLogins;
 	
 	//bi-directional one-to-one association to Persona
@@ -67,7 +81,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 			}
 	)
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER, targetEntity= Persona.class)
 	@JoinColumn(name="persona_id")
 	private Persona persona;
 
@@ -121,6 +135,14 @@ public class Usuario extends AbstractEntity implements Serializable {
 
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	public String getPaswordRepeat() {

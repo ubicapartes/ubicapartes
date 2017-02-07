@@ -52,7 +52,7 @@ public class MailServiceImpl implements MailService {
 	public void send(String to, String subject, String template,
 			final Map<String, Object> model) {
 		// TODO Auto-generated method stub
-		System.out.println("Send 3");
+		//System.out.println("Send 3");
 		send(to, subject, null, template, model);
 	}
 	
@@ -77,7 +77,7 @@ public class MailServiceImpl implements MailService {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
                 message.setTo(new InternetAddress(to));
-                message.setFrom(new InternetAddress("requerimientos.urbicars@gmail.com")); // could be parameterized...
+                message.setFrom(new InternetAddress("requerimientos.urbicars@outlook.com")); // could be parameterized...
                 message.setSubject(subject);
                 if(text!=null && !text.equalsIgnoreCase(""))
                 	message.setText(text);
