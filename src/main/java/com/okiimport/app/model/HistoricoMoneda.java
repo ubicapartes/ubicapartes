@@ -145,6 +145,7 @@ public class HistoricoMoneda extends AbstractEntity implements Serializable, ICo
 	
 	@Override
 	public Number convert(Number val){
+		val = (val ==null ? 0.0 : val);
 		final Number montoPorUnidadBase = getMontoPorUnidadBase();
 		if(!montoPorUnidadBase.toString().equalsIgnoreCase("0")){
 			return ((Number) val).floatValue()/montoPorUnidadBase.floatValue();

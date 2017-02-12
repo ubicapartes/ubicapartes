@@ -17,6 +17,7 @@ import com.okiimport.app.dao.maestros.BancoRepository;
 import com.okiimport.app.dao.maestros.CiudadRepository;
 import com.okiimport.app.dao.maestros.ClasificacionRepuestoRepository;
 import com.okiimport.app.dao.maestros.ClienteRepository;
+import com.okiimport.app.dao.maestros.CuentaRepository;
 import com.okiimport.app.dao.maestros.EstadoRepository;
 import com.okiimport.app.dao.maestros.FormaPagoRepository;
 import com.okiimport.app.dao.maestros.MarcaVehiculoRepository;
@@ -27,6 +28,7 @@ import com.okiimport.app.dao.maestros.ProveedorRepository;
 import com.okiimport.app.dao.maestros.VehiculoRepository;
 import com.okiimport.app.dao.maestros.impl.AnalistaDAO;
 import com.okiimport.app.dao.maestros.impl.ClienteDAO;
+import com.okiimport.app.dao.maestros.impl.CuentaDAO;
 import com.okiimport.app.dao.maestros.impl.MarcaDAO;
 import com.okiimport.app.dao.maestros.impl.MotorDAO;
 import com.okiimport.app.dao.maestros.impl.ProveedorDAO;
@@ -36,6 +38,7 @@ import com.okiimport.app.model.Banco;
 import com.okiimport.app.model.Ciudad;
 import com.okiimport.app.model.ClasificacionRepuesto;
 import com.okiimport.app.model.Cliente;
+import com.okiimport.app.model.Cuenta;
 import com.okiimport.app.model.Estado;
 import com.okiimport.app.model.HistoricoMoneda;
 import com.okiimport.app.model.FormaPago;
@@ -57,6 +60,10 @@ public class SMaestrosImpl extends AbstractServiceImpl implements SMaestros {
 
 	@Autowired
 	private MarcaVehiculoRepository marcaVehiculoRepository;
+	
+
+	@Autowired
+	private CuentaRepository cuentaRepository;
 	
 	@Autowired
 	private FormaPagoRepository formaPagoRepository;
@@ -148,6 +155,88 @@ public class SMaestrosImpl extends AbstractServiceImpl implements SMaestros {
 		Parametros.put("marcas", marcasVehiculo);
 		return Parametros;
 	}
+	
+	//Cuentas
+	
+		public Map<String, Object> consultarCuentas(int page, int limit) {
+			Map<String, Object> Parametros = new HashMap<String, Object>();
+			Integer total = 0;
+			List<Cuenta> cuentas = null;
+			if (limit > 0) {
+				Page<Cuenta> pageCuenta = this.cuentaRepository.findByEstatus(EEstatusGeneral.ACTIVO, new PageRequest(page, limit));
+				total = Long.valueOf(pageCuenta.getTotalElements()).intValue();
+				cuentas = pageCuenta.getContent();
+			} else {
+				cuentas = this.cuentaRepository.findByEstatus(EEstatusGeneral.ACTIVO);
+				total = cuentas.size();
+			}
+			Parametros.put("total", total);
+			Parametros.put("cuentas", cuentas);
+			return Parametros;
+		}
+		
+		public Map<String, Object> consultarCuentasF(Cuenta cuenta, String fieldSort, Boolean sortDirection, int page, int limit) {
+			Map<String, Object> Parametros = new HashMap<String, Object>();
+			Integer total = 0;
+			List<Cuenta> cuentas = null;
+			Sort sortCuenta = new Sort(getDirection(sortDirection, Sort.Direction.ASC), getFieldSort(fieldSort, "idCuenta"));
+			Specification<Cuenta> specfCuenta = (new CuentaDAO()).consultarCuentas(cuenta);
+			
+			if (limit > 0) {
+				Page<Cuenta> pageCuenta = this.cuentaRepository.findAll(specfCuenta,new PageRequest(page, limit, sortCuenta));
+				total = Long.valueOf(pageCuenta.getTotalElements()).intValue();
+				cuentas = pageCuenta.getContent();
+			} else {
+				cuentas = this.cuentaRepository.findByEstatus(EEstatusGeneral.ACTIVO);
+				total = cuentas.size();
+			}
+			Parametros.put("total", total);
+			Parametros.put("cuentas", cuentas);
+			return Parametros;
+		}
+		
+		public Map<String, Object> consultarCuentasUbicapartes(Cuenta cuenta, String fieldSort, Boolean sortDirection, int page, int limit) {
+			Map<String, Object> Parametros = new HashMap<String, Object>();
+			Integer total = 0;
+			List<Cuenta> cuentas = null;
+			Sort sortCuenta = new Sort(getDirection(sortDirection, Sort.Direction.ASC), getFieldSort(fieldSort, "idCuenta"));
+			Specification<Cuenta> specfCuenta = (new CuentaDAO()).consultarCuentasUbicapartes(cuenta);
+			
+			if (limit > 0) {
+				Page<Cuenta> pageCuenta = this.cuentaRepository.findAll(specfCuenta,new PageRequest(page, limit, sortCuenta));
+				total = Long.valueOf(pageCuenta.getTotalElements()).intValue();
+				cuentas = pageCuenta.getContent();
+			} else {
+				cuentas = this.cuentaRepository.findByEstatus(EEstatusGeneral.ACTIVO);
+				total = cuentas.size();
+			}
+			Parametros.put("total", total);
+			Parametros.put("cuentas", cuentas);
+			return Parametros;
+		}
+		
+		@Override
+		public Map<String, Object> consultarCuentasProveedor(Integer idProveedor, int page, int limit) {
+			Map<String, Object> Parametros = new HashMap<String, Object>();
+			Integer total = 0;
+			List<Cuenta> cuentas = null;
+			if (limit > 0) {
+				Page<Cuenta> pageCuenta = this.cuentaRepository.findByProveedorId(idProveedor, new PageRequest(page,limit));
+				total = Long.valueOf(pageCuenta.getTotalElements()).intValue();
+				cuentas = pageCuenta.getContent();
+			} else {
+				cuentas = this.cuentaRepository.findByProveedorId(idProveedor);
+				total = cuentas.size();
+			}
+			Parametros.put("total", total);
+			Parametros.put("cuentas", cuentas);
+			return Parametros;
+		}
+
+		@Override
+		public Cuenta registrarCuenta(Cuenta cuenta) {
+			return cuentaRepository.save(cuenta);
+		}
 	
 	// Formas de pago
 	public Map<String, Object> consultarFormasPago(int page, int limit) {

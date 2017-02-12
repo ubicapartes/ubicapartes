@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.okiimport.app.model.Analista;
 import com.okiimport.app.model.Cliente;
+import com.okiimport.app.model.Cuenta;
 import com.okiimport.app.model.HistoricoMoneda;
 import com.okiimport.app.model.MarcaVehiculo;
 import com.okiimport.app.model.Moneda;
@@ -34,6 +35,23 @@ public interface SMaestros {
 	
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	MarcaVehiculo registrarMarca(MarcaVehiculo marca);
+	
+	//Cuentas
+	@Transactional(readOnly=true)
+	Map<String, Object> consultarCuentas(int page, int limit);
+	
+	@Transactional(readOnly=true)
+	Map<String, Object> consultarCuentasF(Cuenta cuenta, String fieldSort, Boolean sortDirection, int page, int limit);
+	
+	@Transactional(readOnly=true)
+	Map<String, Object> consultarCuentasUbicapartes(Cuenta cuenta, String fieldSort, Boolean sortDirection, int page, int limit);
+	
+	@Transactional(readOnly=true)
+	Map<String, Object> consultarCuentasProveedor(Integer idProveedor, int page, int limit);
+	
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	Cuenta registrarCuenta(Cuenta cuenta);
+	
 	
 	//Formas de pago
 	@Transactional(readOnly=true)
