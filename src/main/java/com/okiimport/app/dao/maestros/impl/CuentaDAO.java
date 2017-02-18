@@ -20,6 +20,7 @@ import com.okiimport.app.model.Cliente;
 import com.okiimport.app.model.Cuenta;
 import com.okiimport.app.model.MarcaVehiculo;
 import com.okiimport.app.model.Proveedor;
+import com.okiimport.app.model.enumerados.EEstatusGeneral;
 import com.okiimport.app.resource.dao.AbstractJpaDao;
 
 public class CuentaDAO extends AbstractJpaDao<Cuenta>{
@@ -113,6 +114,12 @@ public class CuentaDAO extends AbstractJpaDao<Cuenta>{
 						this.criteriaBuilder.lower(this.entity.get("identificacion").as(String.class)),
 						"%"+String.valueOf(CuentaF.getIdentificacion()).toLowerCase()+"%"));
 			}
+			
+			
+				restricciones.add(this.criteriaBuilder.equal(
+						this.criteriaBuilder.lower(this.entity.get("estatus").as(String.class)),
+						String.valueOf(EEstatusGeneral.ACTIVO).toLowerCase()));
+			
 			
 
 			
