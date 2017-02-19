@@ -928,6 +928,12 @@ public class SMaestrosImpl extends AbstractServiceImpl implements SMaestros {
 		parametros.put("vehiculos", vehiculos);
 		return parametros;
 	}*/
+	
+	@Override
+	public Vehiculo eliminarVehiculo(Vehiculo vehiculo){
+		vehiculo.setEstatus(EEstatusGeneral.INACTIVO);
+		return this.vehiculoRepository.save(vehiculo);
+	}
 
 	/** METODOS PROPIOS DE LA CLASE */
 	@SuppressWarnings({ "rawtypes", "unchecked" })

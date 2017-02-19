@@ -18,6 +18,7 @@ import com.okiimport.app.model.Motor;
 import com.okiimport.app.model.Vehiculo;
 import com.okiimport.app.model.Cliente;
 import com.okiimport.app.model.MarcaVehiculo;
+import com.okiimport.app.model.enumerados.EEstatusGeneral;
 import com.okiimport.app.resource.dao.AbstractJpaDao;
 
 public class VehiculoDAO extends AbstractJpaDao<Vehiculo>{
@@ -58,6 +59,7 @@ public class VehiculoDAO extends AbstractJpaDao<Vehiculo>{
 				// 3. Creamos las Restricciones de la busqueda
 				Integer idCliente = vehiculoF.getCliente().getId();
 				List<Predicate> restricciones = new ArrayList<Predicate>();
+				restricciones.add(criteriaBuilder.equal(entity.get("estatus"), EEstatusGeneral.ACTIVO));
 				restricciones.add(criteriaBuilder.equal(entity.get("cliente"),idCliente));
 				agregarRestricciones(vehiculoF, restricciones, joins);
 				

@@ -183,6 +183,10 @@ public interface SMaestros {
 	Map<String, Object> consultarVehiculosF(Integer idCliente,Vehiculo vehiculo, String fieldSort,
 			Boolean sortDirection, int page, int limit);*/
 	
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	Vehiculo eliminarVehiculo(Vehiculo vehiculo);
+	
+	
     //Moneda
 	@Transactional(readOnly=true)
 	public Moneda registrarMoneda(Moneda moneda) ;
