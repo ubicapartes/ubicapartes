@@ -37,7 +37,7 @@ public class MailUsuarioImpl extends AbstractMailImpl implements MailUsuario {
 					final Map<String, Object> model = new HashMap<String, Object>();
 					model.put("usuario", usuario);
 					
-					mailService.send(usuario.getPersona().getCorreo(), "Recuperacion de Usuario",
+					mailService.send(usuario.getPersona().getCorreo(), "Recuperaci\u00f3n de Usuario",
 							"recuperarUsuario.html", model);
 				}
 				catch(Exception e){
@@ -57,7 +57,7 @@ public class MailUsuarioImpl extends AbstractMailImpl implements MailUsuario {
 					model.put("url", serverUrl+"/password/new?token="+usuario.getToken());
 					model.put("usuario", usuario);
 					
-					mailService.send(usuario.getPersona().getCorreo(), "Recuperacion de Contrase\u00f1a",
+					mailService.send(usuario.getPersona().getCorreo(), "Recuperaci\u00f3n de Contrase\u00f1a",
 							"recuperarPassword.html", model);
 				}
 				catch(Exception e){
